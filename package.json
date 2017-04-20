@@ -16,6 +16,7 @@
     "mongoose": "^4.7.6"
   },
   "devDependencies": {
+    "body-parser": "^1.15.2",
     "babel-cli": "^6.18.0",
     "babel-preset-latest": "^6.16.0",
     "nodemon": "^1.11.0"

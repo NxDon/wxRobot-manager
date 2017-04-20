@@ -1,20 +1,65 @@
-import mongoose from 'mongoose';
-import express from 'express';
-import config from 'config';
-import router from './router';
+const mongoose = require('mongoose');
+const express = require('express');
+const config = require('config');
+const bodyParser = require('body-parser');
+const async = require('async');
+const glob = require('glob');
+const path = require('path');
+const router = require('./router');
+const constant = require('./config/constant');
+const UserStatus = require('./model/userStatus');
+const status = {};
 
-mongoose.connect(config.get('mongoUri'));
+mongoose.connect(config.get('mongoUri'),(err) => {
+    if (err) {
+        console.log('connect failed');
+    }else {
+        console.log('connect success');
+    }
+});
 
 const app = express();
+app.use(bodyParser.json());
+app.post('/wechat', (req, res) => {
+    console.log(req.body, 'data======');
+    const userId = req.body.senderInfo.AttrStatus;
+    const type = req.body.message.type;
+    const str = req.body.message.info;
+    async.waterfall([
+        (done) => {
+            UserStatus.find({userId}, done);
+        },
+        (data, done) => {
+            glob("./wechat-status/*.js", {}, (err, files) => {
+                files.forEach((file) => {
+                    let pathName = path.basename(file, '.js');
+                    let Clazz = require(file);
+                    status[pathName] = new Clazz();
+                });
+                if (data.length === 0) {
+                    status['info'].handler(userId, str, done);
+                } else {
+                    status[data[0].status].handler(userId, str, done);
+                }
+            });
+        }
+    ],(err, data) => {
+        if (err) {
+            return res.sendStatus(constant.httpCode.BAD_REQUEST);
+        }
+        return res.status(constant.httpCode.OK).send(data);
+    });
+});
 
-app.get('/', (req, res)=> {
-    res.send({
-        'hello': 'world'
-    })
-})
-
-router(app);
-
+app.get('/userStatus', (req, res) => {
+    UserStatus.find({},(err, data) => {
+        if (err) {
+            return res.sendStatus(constant.httpCode.NO_CONTENT);
+        }
+         return res.status(constant.httpCode.OK).send(data);
+    });
+});
 app.listen(config.get('httpPort'), ()=> {
     console.log('server started at http://localhost:' + config.get('httpPort'));   // eslint-disable-line no-console
-})
+});
+
