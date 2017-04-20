@@ -8,7 +8,16 @@ const path = require('path');
 const router = require('./router');
 const constant = require('./config/constant');
 const UserStatus = require('./model/userStatus');
+const User = require('./model/user');
 const status = {};
+
+glob("./wechat-status/*.js", {}, (err, files) => {
+    files.forEach((file) => {
+        let pathName = path.basename(file, '.js');
+        let Clazz = require(file);
+        status[pathName] = new Clazz();
+    });
+});
 
 mongoose.connect(config.get('mongoUri'),(err) => {
     if (err) {
@@ -21,27 +30,19 @@ mongoose.connect(config.get('mongoUri'),(err) => {
 const app = express();
 app.use(bodyParser.json());
 app.post('/wechat', (req, res) => {
-    console.log(req.body, 'data======');
-    const userId = req.body.senderInfo.AttrStatus;
+    const userId = req.body.senderInfo.NickName;
     const type = req.body.message.type;
     const str = req.body.message.info;
     async.waterfall([
         (done) => {
-            UserStatus.find({userId}, done);
+            UserStatus.findOne({userId}, done);
         },
         (data, done) => {
-            glob("./wechat-status/*.js", {}, (err, files) => {
-                files.forEach((file) => {
-                    let pathName = path.basename(file, '.js');
-                    let Clazz = require(file);
-                    status[pathName] = new Clazz();
-                });
-                if (data.length === 0) {
-                    status['info'].handler(userId, str, done);
-                } else {
-                    status[data[0].status].handler(userId, str, done);
-                }
-            });
+            if (data.length === 0) {
+                status['info'].handler(userId, str, done);
+            } else {
+                status[data[0].status].handler(userId, str, done);
+            }
         }
     ],(err, data) => {
         if (err) {
@@ -57,6 +58,14 @@ app.get('/userStatus', (req, res) => {
             return res.sendStatus(constant.httpCode.NO_CONTENT);
         }
          return res.status(constant.httpCode.OK).send(data);
+    });
+});
+app.get('/user', (req, res) => {
+    User.find({},(err, data) => {
+        if (err) {
+            return res.sendStatus(constant.httpCode.NO_CONTENT);
+        }
+        return res.status(constant.httpCode.OK).send(data);
     });
 });
 app.listen(config.get('httpPort'), ()=> {

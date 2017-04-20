@@ -5,7 +5,7 @@ const async = require('async');
 class Wszl {
 
   showText() {
-    return '请输入你所在城市';
+    return {type:'text', info: '请输入你所在城市'};
   }
 
   handler(userId, str, callback) {

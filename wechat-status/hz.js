@@ -5,7 +5,7 @@ const async = require('async');
 class Wszl {
 
   showText() {
-    return '请输入合作的邮箱地址';
+    return {type:'text', info: '请输入合作的邮箱地址'};
   }
 
   handler(userId, str, callback) {

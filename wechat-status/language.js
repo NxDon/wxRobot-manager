@@ -4,7 +4,7 @@ const async = require('async');
 
 class Srct {
   showText() {
-    return '';
+    return {type: 'courseShop', info: 'courseShop'};
   }
 
   handler(userId, str,callback) {
@@ -13,7 +13,7 @@ class Srct {
         User.update({userId: userId}, {language: str}, done);
       },
       (data, done) => {
-        UserStatus.update({userId: userId},{status:'next'},done);
+        UserStatus.update({userId: userId},{status:'info'}, done);
       }
     ],(err) => {
       if(err){

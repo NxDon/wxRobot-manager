@@ -4,7 +4,7 @@ const async = require('async');
 
 class Srct {
   showText() {
-    return '请如入你的性别';
+    return {type:'text', info: '请如入你的性别'};
   }
 
   handler(userId, str,callback) {
