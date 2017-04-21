@@ -1,5 +1,6 @@
 const UserStatus = require('../model/userStatus');
 const User = require('../model/user');
+const constant = require('../config/constant');
 const async = require('async');
 
 class Wszl {
@@ -13,14 +14,22 @@ class Wszl {
       (done) => {
         User.create({userId: userId, name: str}, done);
       },
-      (data, done) => {
-        UserStatus.update({userId: userId},{status:'srct'}, done);
+      (done) => {
+        // if(type === 'text'){
+          UserStatus.update({userId: userId},{status:'srct'}, done);
+        // } else {
+        //   console.log(type, 'into feifa====');
+        //   done(null, constant.validate.text);
+        // }
       }
-    ],(err) => {
+    ],(err, data) => {
       if(err){
         return callback(err, null);
+      } else if(data){
+        return callback(null, data);
+      }else {
+        return callback(null, this.showText());
       }
-      return callback(null, this.showText());
     });
   }
 }
