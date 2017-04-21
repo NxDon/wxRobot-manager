@@ -38,10 +38,10 @@ app.post('/wechat', (req, res) => {
             UserStatus.findOne({userId}, done);
         },
         (data, done) => {
-            if (data.length === 0) {
-                status['info'].handler(userId, str, done);
+            if (!data) {
+                status['info'].handler(userId, str, type, done);
             } else {
-                status[data[0].status].handler(userId, str, done);
+                status[data.status].handler(userId, str, type, done);
             }
         }
     ],(err, data) => {

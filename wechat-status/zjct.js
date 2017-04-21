@@ -7,7 +7,7 @@ class Srct {
     return {type:'text', info: '你擅长的编程语言是什么'};
   }
 
-  handler(userId, str,callback) {
+  handler(userId, str, type, callback) {
     async.waterfall([
       (done) => {
         User.update({userId: userId}, {city: str}, done);

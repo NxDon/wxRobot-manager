@@ -7,13 +7,13 @@ class Srct {
     return {type: 'courseShop', info: 'courseShop'};
   }
 
-  handler(userId, str,callback) {
+  handler(userId, str, type, callback) {
     async.waterfall([
       (done) => {
         User.update({userId: userId}, {language: str}, done);
       },
       (data, done) => {
-        UserStatus.update({userId: userId},{status:'info'}, done);
+        UserStatus.update({userId: userId},{status:'change'}, done);
       }
     ],(err) => {
       if(err){

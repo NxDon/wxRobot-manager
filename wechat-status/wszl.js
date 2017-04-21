@@ -8,8 +8,7 @@ class Wszl {
     return {type:'text', info: '请输入你所在城市'};
   }
 
-  handler(userId, str, callback) {
-    console.log('into wszl handler');
+  handler(userId, str, type, callback) {
     async.waterfall([
       (done) => {
         User.create({userId: userId, name: str}, done);

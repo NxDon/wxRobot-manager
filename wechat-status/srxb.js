@@ -7,22 +7,16 @@ class Srct {
     return {type:'club', info: 'club'};
   }
 
-  handler(userId, str,callback) {
+  handler(userId, str, type, callback) {
     async.waterfall([
       (done) => {
         User.update({userId: userId}, {sex: str}, done);
       },
       (data, done) => {
-        UserStatus.update({userId: userId, status: 'info'}, done);
-        // if (str === '男'){
-        //   UserStatus.update({userId: userId},{status:'TW5'},done);
-        // } else {
-        //   UserStatus.update({userId: userId},{status:'推送club'},done);
-        //
-        // }
+        UserStatus.update({userId: userId, status: 'change'}, done);
       }
     ],(err) => {
-      if(err){
+      if (err) {
         return callback(err, null);
       }
       return callback(null, this.showText());
