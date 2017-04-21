@@ -14,13 +14,13 @@ class Wszl {
     return {type: 'text', info: '请输入你所在城市'};
   }
 
-  handler(userId, str, type, callback) {
+  handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.create({userId: userId, name: str}, done);
+        User.create({userId: userId, name: message.info}, done);
       },
       (data, done) => {
-        if (this.validate.check(type, this.realType)) {
+        if (this.validate.check(message.type, this.realType)) {
           UserStatus.update({userId: userId}, {status: 'srct'}, done);
         } else {
           done(null, {text: constant.validate.err});

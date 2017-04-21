@@ -14,13 +14,13 @@ class Wszl {
     return {type:'text', info: '请输入合作的邮箱地址'};
   }
 
-  handler(userId, str, type, callback) {
+  handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.create({userId: userId, name: str}, done);
+        User.create({userId: userId, name: message.info}, done);
       },
       (data, done) => {
-        if (this.validate.check(type, this.realType)) {
+        if (this.validate.check(message.type, this.realType)) {
           UserStatus.update({userId: userId},{status:'email'}, done);
         } else {
           done(null, {text: constant.validate.err});

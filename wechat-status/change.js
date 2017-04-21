@@ -5,7 +5,7 @@ class Info {
     return {type: 'text', info: '1.完善资料;2.助教；3.合作'};
   }
 
-  handler(userId, str, type, callback) {
+  handler(userId, message, callback) {
     UserStatus.update({userId: userId, status: 'choice'},(err) => {
       if (err) {
         return callback(err, null);

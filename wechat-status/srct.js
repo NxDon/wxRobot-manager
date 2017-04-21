@@ -14,13 +14,13 @@ class Srct {
     return {type: 'text', info: '请如入你的性别'};
   }
 
-  handler(userId, str, type, callback) {
+  handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {city: str}, done);
+        User.update({userId: userId}, {city: message.info}, done);
       },
       (data, done) => {
-        if (this.validate.check(type, this.realType)) {
+        if (this.validate.check(message.type, this.realType)) {
           UserStatus.update({userId: userId}, {status: 'srxb'}, done);
         } else {
           done(null, {text: constant.validate.err});

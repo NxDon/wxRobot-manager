@@ -14,13 +14,13 @@ class Srct {
     return {type:'club', info: 'club'};
   }
 
-  handler(userId, str, type, callback) {
+  handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {sex: str}, done);
+        User.update({userId: userId}, {sex: message.info}, done);
       },
       (data, done) => {
-        if (this.validate.check(type, this.realType)) {
+        if (this.validate.check(message.type, this.realType)) {
           UserStatus.update({userId: userId, status: 'change'}, done);
         } else {
           done(null, {text: constant.validate.err});

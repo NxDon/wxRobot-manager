@@ -31,17 +31,16 @@ const app = express();
 app.use(bodyParser.json());
 app.post('/wechat', (req, res) => {
     const userId = req.body.senderInfo.NickName;
-    const type = req.body.message.type;
-    const str = req.body.message.info;
+    const message = req.body.message;
     async.waterfall([
         (done) => {
             UserStatus.findOne({userId}, done);
         },
         (data, done) => {
             if (!data) {
-                status['info'].handler(userId, str, type, done);
+                status['info'].handler(userId, message, done);
             } else {
-                status[data.status].handler(userId, str, type, done);
+                status[data.status].handler(userId, message, done);
             }
         }
     ],(err, data) => {
