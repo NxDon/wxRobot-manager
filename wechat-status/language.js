@@ -7,7 +7,7 @@ const async = require('async');
 class Srct {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'text'}];
+    this.realType = [{type: 'Text'}];
   }
 
   showText() {

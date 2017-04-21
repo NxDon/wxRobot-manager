@@ -7,11 +7,11 @@ const async = require('async');
 class Wszl {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'text'}];
+    this.realType = [{type: 'Text'}];
   }
 
   showText() {
-    return {type:'text', info: '请输入你所在城市'};
+    return {type:'Text', info: '请输入你所在城市'};
   }
 
   handler(userId, message, callback) {

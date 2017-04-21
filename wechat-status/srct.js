@@ -7,11 +7,11 @@ const async = require('async');
 class Srct {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'text'}];
+    this.realType = [{type: 'Text'}];
   }
 
   showText() {
-    return {type: 'text', info: '请如入你的性别'};
+    return {type: 'Text', info: '请如入你的性别'};
   }
 
   handler(userId, message, callback) {

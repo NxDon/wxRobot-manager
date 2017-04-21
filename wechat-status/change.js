@@ -2,7 +2,7 @@ const UserStatus = require('../model/userStatus');
 
 class Info {
   showText() {
-    return {type: 'text', info: '1.完善资料;2.助教；3.合作'};
+    return {type: 'Text', info: '1.完善资料;2.助教；3.合作'};
   }
 
   handler(userId, message, callback) {

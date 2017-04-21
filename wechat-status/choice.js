@@ -5,11 +5,11 @@ const Validate = require('../tool/validate');
 class Info {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'text'}];
+    this.realType = [{type: 'Text'}];
   }
 
   showText() {
-    return {type:'text', info: '请输入你的姓名'};
+    return {type:'Text', info: '请输入你的姓名'};
   }
 
   handler(userId, message, callback) {

@@ -3,7 +3,7 @@ const NickName = (Math.random().toString(36)+'').substr(2,8);
 
 class Info {
   showText() {
-    return {type: 'text', info: '1.完善资料;2.助教；3.合作', NickName: NickName};
+    return {type: 'Text', info: '1.完善资料;2.助教；3.合作', NickName: NickName};
   }
 
   handler(userId, message, callback) {
