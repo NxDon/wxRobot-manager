@@ -1,5 +1,5 @@
 const UserStatus = require('../model/userStatus');
-const NickName = Math.random()*10;
+const NickName = Math.random()*100;
 
 class Info {
   showText() {

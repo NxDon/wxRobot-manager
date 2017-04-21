@@ -1,12 +1,17 @@
 const UserStatus = require('../model/userStatus');
 const User = require('../model/user');
 const constant = require('../config/constant');
+const Validate = require('../tool/validate');
 const async = require('async');
 
 class Wszl {
+  constructor() {
+    this.validate = new Validate();
+    this.realType = [{type: 'text'}];
+  }
 
   showText() {
-    return {type:'text', info: '请输入你所在城市'};
+    return {type: 'text', info: '请输入你所在城市'};
   }
 
   handler(userId, str, type, callback) {
@@ -14,22 +19,21 @@ class Wszl {
       (done) => {
         User.create({userId: userId, name: str}, done);
       },
-      (done) => {
-        // if(type === 'text'){
-          UserStatus.update({userId: userId},{status:'srct'}, done);
-        // } else {
-        //   console.log(type, 'into feifa====');
-        //   done(null, constant.validate.text);
-        // }
+      (data, done) => {
+        if (this.validate.check(type, this.realType)) {
+          UserStatus.update({userId: userId}, {status: 'srct'}, done);
+        } else {
+          done(null, {text: constant.validate.err});
+        }
       }
-    ],(err, data) => {
-      if(err){
+    ], (err, data) => {
+      if (err) {
         return callback(err, null);
-      } else if(data){
-        return callback(null, data);
-      }else {
-        return callback(null, this.showText());
       }
+      if (data.text) {
+        return callback(null, data.text);
+      }
+      return callback(null, this.showText());
     });
   }
 }
