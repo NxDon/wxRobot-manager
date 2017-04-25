@@ -8,19 +8,21 @@ class Srct {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
+    this.realSex = [{sex: '男'}, {sex: '女'}];
   }
 
   showText(sex) {
-    if (sex === '男'){
-      return {type:'Group', info: '20f2112t'};
+    if (sex === '男') {
+      return {type: 'Group', info: '20f2112t'};
     }
-    return {type:'Group', info: 'fafaf4a9'};
+    return {type: 'Group', info: 'fafaf4a9'};
   }
 
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        if (this.validate.check(message.type, this.realType)) {
+        if (this.validate.check(message.type, this.realType) &&
+            this.validate.sex(message.text, this.realSex)) {
           User.update({userId: userId}, {sex: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
@@ -33,7 +35,7 @@ class Srct {
           UserStatus.update({userId: userId, status: 'change'}, done);
         }
       }
-    ],(err, data) => {
+    ], (err, data) => {
       if (err) {
         return callback(err, null);
       }

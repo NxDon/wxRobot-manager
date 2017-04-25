@@ -11,7 +11,7 @@ class Srct {
   }
 
   showText() {
-    return {type:'email', info: 'email'};
+    return {type:'Email', info: 'email'};
   }
 
   handler(userId, message, callback) {

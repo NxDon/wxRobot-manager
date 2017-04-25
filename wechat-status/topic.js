@@ -17,10 +17,10 @@ class Topic {
   handler(groupId, message, userId, callback) {
     async.waterfall([
       (done) => {
-        if (this.validate.check(message.type, this.realType)) {
+        if (this.validate.check(message.type, this.realType) && message.text.match(/^#/)) {
           GroupTopic.create({topic: message.text, groupId: groupId, userId: userId}, done);
         } else {
-          done(null, {text: constant.validate.err});
+          done(null, {text: constant.validate.no});
         }
       },
       (data, done) => {

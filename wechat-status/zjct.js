@@ -8,7 +8,8 @@ class Srct {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
-    this.realCity = [{city: '成都'}, {city: '北京'}];
+    this.realCity = [{city: '成都'}, {city: '北京'}, {city: '西安'},
+      {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
   showText(city) {

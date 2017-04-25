@@ -28,7 +28,7 @@ class Collect {
         if (data.text) {
           done(null, data);
         } else {
-          const topicId = data[data.length - 1];
+          const topicId = data[data.length - 1]._id;
           const answer = message.type === 'Text' ? message.text : message.file_path;
           TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
         }
