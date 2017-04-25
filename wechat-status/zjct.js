@@ -14,9 +14,9 @@ class Srct {
 
   showText(city) {
     switch (city) {
-      case '成都': return {type: 'CourseShop', info: '20f2112t'};
-      case '北京': return {type: 'CourseShop', info: 'fafaf4a9'};
-      default: return {type: 'CourseShop', info: '20f2112t'};
+      case '成都': return {type: 'add_member', info: 'fafaf4a9'};
+      case '北京': return {type: 'add_member', info: 'fafaf4a9'};
+      default: return {type: 'add_member', info: 'fafaf4a9'};
     }
   }
 

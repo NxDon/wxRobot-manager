@@ -13,9 +13,9 @@ class Srct {
 
   showText(sex) {
     if (sex === '男') {
-      return {type: 'Group', info: '20f2112t'};
+      return {type: 'add_member', info: 'fafaf4a9'};
     }
-    return {type: 'Group', info: 'fafaf4a9'};
+    return {type: 'add_member', info: 'fafaf4a9'};
   }
 
   handler(userId, message, callback) {
