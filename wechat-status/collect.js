@@ -29,7 +29,6 @@ class Collect {
           done(null, data);
         } else {
           if (message.text === '#') {
-            console.log('into end condition====');
             UserStatus.update({userId: groupId}, {status: 'topic'}, (err, data)=> {
               done(null, {text: constant.validate.end})
             });

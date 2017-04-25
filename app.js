@@ -37,7 +37,6 @@ app.post('/wechat', (req, res) => {
       UserStatus.findOne({userId}, done);
     },
     (data, done) => {
-      console.log(data, 'data----');
       if (!member) {
         if (!data) {
           status['info'].handler(userId, message, done);
@@ -48,7 +47,6 @@ app.post('/wechat', (req, res) => {
         if (!data) {
           status['group'].handler(userId, message, member, done);
         } else {
-          console.log(data.status, 'status====');
           status[data.status].handler(userId, message, member, done);
         }
       }
