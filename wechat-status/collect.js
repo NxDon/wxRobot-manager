@@ -30,8 +30,9 @@ class Collect {
         } else {
           if (message.text === '#') {
             console.log('into end condition====');
-            UserStatus.update({userId: groupId}, {status: 'topic'},
-                done(null, {text: constant.validate.end}));
+            UserStatus.update({userId: groupId}, {status: 'topic'}, (err, data)=> {
+              done(null, {text: constant.validate.end})
+            });
           } else {
             const topicId = data[data.length - 1]._id;
             const answer = message.type === 'Text' ? message.text : message.file_path;
