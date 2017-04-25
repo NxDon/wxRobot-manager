@@ -11,19 +11,23 @@ class Wszl {
   }
 
   showText() {
-    return {type:'Text', info: '请输入你所在城市'};
+    return {type:'Text', info: '你擅长的编程语言是什么'};
   }
 
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.create({userId: userId, name: message.text}, done);
-      },
-      (data, done) => {
         if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId},{status:'zjct'}, done);
+          User.create({userId: userId, name: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
+        }
+      },
+      (data, done) => {
+        if(data.text) {
+          done(null, data);
+        } else {
+          UserStatus.update({userId: userId},{status:'language'}, done);
         }
       }
     ],(err, data) => {

@@ -17,13 +17,17 @@ class Wszl {
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.create({userId: userId, name: message.text}, done);
-      },
-      (data, done) => {
         if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId}, {status: 'srct'}, done);
+          User.create({userId: userId, name: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
+        }
+      },
+      (data, done) => {
+        if (data.text) {
+          done(null, data);
+        } else {
+          UserStatus.update({userId: userId}, {status: 'srct'}, done);
         }
       }
     ], (err, data) => {

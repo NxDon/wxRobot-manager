@@ -29,9 +29,9 @@ mongoose.connect(config.get('mongoUri'),(err) => {
 const app = express();
 app.use(bodyParser.json());
 app.post('/wechat', (req, res) => {
-    const userId = req.body.sender.puid;
+    const userId = req.body.sender_puid;
     const message = req.body.message;
-    const member = req.body.member;
+    const member = req.body.member_puid;
     async.waterfall([
         (done) => {
             UserStatus.findOne({userId}, done);
@@ -46,9 +46,9 @@ app.post('/wechat', (req, res) => {
                 }
             } else {
                 if (!data) {
-                    status['group'].handler(userId, message, member.puid, done);
+                    status['group'].handler(userId, message, member, done);
                 } else {
-                    status[data.status].handler(userId, message, member.puid, done);
+                    status[data.status].handler(userId, message, member, done);
                 }
             }
 

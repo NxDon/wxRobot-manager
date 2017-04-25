@@ -11,19 +11,23 @@ class Srct {
   }
 
   showText() {
-    return {type: 'courseShop', info: 'courseShop'};
+    return {type:'Text', info: '请输入你所在城市'};
   }
 
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {language: message.text}, done);
-      },
-      (data, done) => {
         if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId}, {status: 'change'}, done);
+          User.update({userId: userId}, {language: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
+        }
+      },
+      (data, done) => {
+        if (data.text) {
+          done(null, data);
+        } else {
+          UserStatus.update({userId: userId}, {status: 'zjct'}, done);
         }
       }
     ], (err, data) => {

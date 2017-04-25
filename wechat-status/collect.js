@@ -8,7 +8,7 @@ const async = require('async');
 class Collect {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'},{type: 'Picture'}];
+    this.realType = [{type: 'Text'}, {type: 'Picture'}];
   }
 
   showText() {
@@ -18,18 +18,22 @@ class Collect {
   handler(groupId, message, userId, callback) {
     async.waterfall([
       (done) => {
-        GroupTopic.find({groupId},done);
-      },
-      (data, done) => {
-        const topicId = data[data.length - 1];
-        const answer = message.type === 'Text' ? message.text : message.file_path;
-        if (this.validate.check(message.type, this.realType)){
-          TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
+        if (this.validate.check(message.type, this.realType)) {
+          GroupTopic.find({groupId}, done);
         } else {
           done(null, {text: constant.validate.err});
         }
+      },
+      (data, done) => {
+        if (data.text) {
+          done(null, data);
+        } else {
+          const topicId = data[data.length - 1];
+          const answer = message.type === 'Text' ? message.text : message.file_path;
+          TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
+        }
       }
-    ],(err, data) => {
+    ], (err, data) => {
       if (err) {
         return callback(err, null);
       }

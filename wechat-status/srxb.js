@@ -10,20 +10,27 @@ class Srct {
     this.realType = [{type: 'Text'}];
   }
 
-  showText() {
-    return {type:'club', info: 'club'};
+  showText(sex) {
+    if (sex === '男'){
+      return {type:'Group', info: '20f2112t'};
+    }
+    return {type:'Group', info: 'fafaf4a9'};
   }
 
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {sex: message.text}, done);
-      },
-      (data, done) => {
         if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId, status: 'change'}, done);
+          User.update({userId: userId}, {sex: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
+        }
+      },
+      (data, done) => {
+        if (data.text) {
+          done(null, data);
+        } else {
+          UserStatus.update({userId: userId, status: 'change'}, done);
         }
       }
     ],(err, data) => {
@@ -33,7 +40,7 @@ class Srct {
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText());
+      return callback(null, this.showText(message.text));
 
     });
   }

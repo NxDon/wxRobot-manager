@@ -8,22 +8,32 @@ class Srct {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
+    this.realCity = [{city: '成都'}, {city: '北京'}];
   }
 
-  showText() {
-    return {type:'Text', info: '你擅长的编程语言是什么'};
+  showText(city) {
+    switch (city) {
+      case '成都': return {type: 'CourseShop', info: '20f2112t'};
+      case '北京': return {type: 'CourseShop', info: 'fafaf4a9'};
+      default: return {type: 'CourseShop', info: '20f2112t'};
+    }
   }
 
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {city: message.text}, done);
-      },
-      (data, done) => {
-        if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId},{status:'language'},done);
+        if (this.validate.check(message.type, this.realType) &&
+            this.validate.city(message.text, this.realCity)) {
+          User.update({userId: userId}, {city: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
+        }
+      },
+      (data, done) => {
+        if (data.text) {
+          done(null, data);
+        } else {
+          UserStatus.update({userId: userId},{status:'change'},done);
         }
       }
     ],(err, data) => {
@@ -33,7 +43,7 @@ class Srct {
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText());
+      return callback(null, this.showText(message.text));
     });
   }
 }
