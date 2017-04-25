@@ -13,7 +13,7 @@ class Info {
   }
 
   handler(userId, message, callback) {
-    const status = message.info === '1' ? 'wszl':message.info === '2' ? 'zj':'hz';
+    const status = message.text === '1' ? 'wszl':message.text === '2' ? 'zj':'hz';
     if (this.validate.check(message.type, this.realType)) {
       UserStatus.update({userId: userId, status: status},(err) => {
         if (err) {

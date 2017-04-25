@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const async = require('async');
 const glob = require('glob');
 const path = require('path');
-const router = require('./router');
 const constant = require('./config/constant');
 const UserStatus = require('./model/userStatus');
 const User = require('./model/user');
@@ -30,18 +29,29 @@ mongoose.connect(config.get('mongoUri'),(err) => {
 const app = express();
 app.use(bodyParser.json());
 app.post('/wechat', (req, res) => {
-    const userId = req.body.senderInfo.NickName;
+    const userId = req.body.sender.puid;
     const message = req.body.message;
+    const member = req.body.member;
     async.waterfall([
         (done) => {
             UserStatus.findOne({userId}, done);
         },
         (data, done) => {
-            if (!data) {
-                status['info'].handler(userId, message, done);
+            console.log(data,'data----');
+            if (!member){
+                if (!data) {
+                    status['info'].handler(userId, message, done);
+                } else {
+                    status[data.status].handler(userId, message, done);
+                }
             } else {
-                status[data.status].handler(userId, message, done);
+                if (!data) {
+                    status['group'].handler(userId, message, member.puid, done);
+                } else {
+                    status[data.status].handler(userId, message, member.puid, done);
+                }
             }
+
         }
     ],(err, data) => {
         if (err) {

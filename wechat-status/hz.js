@@ -17,7 +17,7 @@ class Wszl {
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.create({userId: userId, name: message.info}, done);
+        User.create({userId: userId, name: message.text}, done);
       },
       (data, done) => {
         if (this.validate.check(message.type, this.realType)) {

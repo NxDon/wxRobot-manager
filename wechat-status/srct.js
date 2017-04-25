@@ -17,7 +17,7 @@ class Srct {
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {city: message.info}, done);
+        User.update({userId: userId}, {city: message.text}, done);
       },
       (data, done) => {
         if (this.validate.check(message.type, this.realType)) {

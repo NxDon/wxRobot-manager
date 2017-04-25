@@ -7,7 +7,7 @@ const constant = {
     BAD_REQUEST: 400
   },
   validate:{
-    err: {type: 'Text', info:'输入有误'}
+    err: {type: 'Text', info: '输入有误'},
   }
 };
 module.exports = constant;

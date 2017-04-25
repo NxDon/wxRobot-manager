@@ -1,13 +1,12 @@
 const UserStatus = require('../model/userStatus');
-const NickName = (Math.random().toString(36)+'').substr(2,8);
 
 class Info {
   showText() {
-    return {type: 'Text', info: '1.完善资料;2.助教；3.合作', NickName: NickName};
+    return {type: 'Text', info: '1.完善资料;2.助教；3.合作'};
   }
 
   handler(userId, message, callback) {
-    UserStatus.create({userId: NickName, status: 'choice'},(err) => {
+    UserStatus.create({userId: userId, status: 'choice'},(err) => {
       if(err){
         return callback(err, null);
       }

@@ -1,27 +1,30 @@
 const UserStatus = require('../model/userStatus');
-const User = require('../model/user');
+const TopicAnswer = require('../model/topicAnswer');
+const GroupTopic = require('../model/groupTopic');
 const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Srct {
+class Collect {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'}];
+    this.realType = [{type: 'Text'},{type: 'Picture'}];
   }
 
   showText() {
-    return {type:'club', info: 'club'};
+    return {type: 'Collect', info: '你说的真棒'};
   }
 
-  handler(userId, message, callback) {
+  handler(groupId, message, userId, callback) {
     async.waterfall([
       (done) => {
-        User.update({userId: userId}, {sex: message.text}, done);
+        GroupTopic.find({groupId},done);
       },
       (data, done) => {
-        if (this.validate.check(message.type, this.realType)) {
-          UserStatus.update({userId: userId, status: 'change'}, done);
+        const topicId = data[data.length - 1];
+        const answer = message.type === 'Text' ? message.text : message.file_path;
+        if (this.validate.check(message.type, this.realType)){
+          TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
         } else {
           done(null, {text: constant.validate.err});
         }
@@ -34,9 +37,9 @@ class Srct {
         return callback(null, data.text);
       }
       return callback(null, this.showText());
-
     });
+
   }
 }
 
-module.exports = Srct;
+module.exports = Collect;
