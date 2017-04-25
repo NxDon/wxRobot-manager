@@ -12,7 +12,7 @@ class Collect {
   }
 
   showText() {
-    return {type: 'Collect', info: '你说的真棒'};
+    return {type: 'Text', info: '你说的真棒'};
   }
 
   handler(groupId, message, userId, callback) {
@@ -28,9 +28,15 @@ class Collect {
         if (data.text) {
           done(null, data);
         } else {
-          const topicId = data[data.length - 1]._id;
-          const answer = message.type === 'Text' ? message.text : message.file_path;
-          TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
+          if (message.text === '#') {
+            console.log('into end condition====');
+            UserStatus.update({userId: groupId}, {status: 'topic'},
+                done(null, {text: constant.validate.end}));
+          } else {
+            const topicId = data[data.length - 1]._id;
+            const answer = message.type === 'Text' ? message.text : message.file_path;
+            TopicAnswer.create({answer: answer, topicId: topicId, userId: userId}, done);
+          }
         }
       }
     ], (err, data) => {

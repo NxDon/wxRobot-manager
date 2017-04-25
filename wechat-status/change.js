@@ -6,7 +6,7 @@ class Info {
   }
 
   handler(userId, message, callback) {
-    UserStatus.update({userId: userId, status: 'choice'},(err) => {
+    UserStatus.update({userId: userId}, {status: 'choice'},(err) => {
       if (err) {
         return callback(err, null);
       }

@@ -8,7 +8,8 @@ const constant = {
   },
   validate:{
     err: {type: 'Text', info: '输入有误'},
-    no: {type: 'Text', info: ''}
+    no: {type: 'Text', info: ''},
+    end: {type: 'Text', info: '主题讨论终止'}
   }
 };
 module.exports = constant;

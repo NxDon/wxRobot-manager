@@ -48,6 +48,7 @@ app.post('/wechat', (req, res) => {
         if (!data) {
           status['group'].handler(userId, message, member, done);
         } else {
+          console.log(data.status, 'status====');
           status[data.status].handler(userId, message, member, done);
         }
       }

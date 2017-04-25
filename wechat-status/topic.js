@@ -11,7 +11,7 @@ class Topic {
   }
 
   showText() {
-    return {type: 'Topic', info: '主题创建成功，宝宝们开始畅所欲言吧'};
+    return {type: 'Text', info: '主题创建成功，宝宝们开始畅所欲言吧'};
   }
 
   handler(groupId, message, userId, callback) {
