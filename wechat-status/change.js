@@ -1,6 +1,6 @@
 const UserStatus = require('../model/userStatus');
 const constant = require('../config/constant');
-const validate = require('../tool/validate');
+const Validate = require('../tool/validate');
 
 class Change {
   constructor() {
