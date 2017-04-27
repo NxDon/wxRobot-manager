@@ -12,15 +12,28 @@ class Srct {
       {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
-  showText(city) {
+  showText(city, NumberSex) {
+    let sex = '';
+    if (NumberSex === '男') {
+      sex = 'boys';
+    } else {
+      sex = 'girls'
+    }
     switch (city) {
-      case '成都': return {type: 'add_member', info: '成都学员群'};
-      case '北京': return {type: 'add_member', info: '北京学员群'};
-      case '深圳': return {type: 'add_member', info: '深圳学员群'};
-      case '上海': return {type: 'add_member', info: '上海学员群'};
-      case '西安': return {type: 'add_member', info: '西安学员群'};
-      case '武汉': return {type: 'add_member', info: '武汉学员群'};
-      default: return {type: 'add_member', info: '上海学员群'};
+      case '成都':
+        return {type: 'add_member', info: '成都学员群-'+ sex};
+      case '北京':
+        return {type: 'add_member', info: '北京学员群-'+ sex};
+      case '深圳':
+        return {type: 'add_member', info: '深圳学员群-'+ sex};
+      case '上海':
+        return {type: 'add_member', info: '上海学员群-'+ sex};
+      case '西安':
+        return {type: 'add_member', info: '西安学员群-'+ sex};
+      case '武汉':
+        return {type: 'add_member', info: '武汉学员群-'+ sex};
+      default:
+        return {type: 'add_member', info: '上海学员群-'+ sex};
     }
   }
 
@@ -42,7 +55,12 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'finish'}, done);
+          UserStatus.update({userId: userId}, {status: 'finish'}, (err) => {
+            if (err) {
+              done(err, null);
+            }
+            User.findOne({userId: userId}, done);
+          });
         }
       }
     ], (err, data) => {
@@ -52,7 +70,7 @@ class Srct {
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText(message.text));
+      return callback(null, this.showText(message.text, data.sex));
     });
   }
 }
