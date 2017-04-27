@@ -30,7 +30,7 @@ class Collect {
           done(null, data);
         } else {
           if (message.type === 'Text' && message.text === '#') {
-            UserStatus.update({userId: groupId}, {status: 'topic'}, (err, data)=> {
+            UserStatus.update({userId: groupId}, {status: 'topic'}, (err)=> {
               done(null, {text: constant.validate.end})
             });
           } else {
