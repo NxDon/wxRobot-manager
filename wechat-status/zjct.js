@@ -34,7 +34,7 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId},{status:'change'},done);
+          UserStatus.update({userId: userId},{status:'finish'},done);
         }
       }
     ],(err, data) => {

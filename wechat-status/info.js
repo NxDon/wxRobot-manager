@@ -2,12 +2,12 @@ const UserStatus = require('../model/userStatus');
 
 class Info {
   showText() {
-    return {type: 'Text', info: '1.完善资料;2.助教；3.合作'};
+    return {type: 'Text', info: '请选择您的角色  1.我要当学员;2.我要当助教；3.我想合作'};
   }
 
   handler(userId, message, callback) {
-    UserStatus.create({userId: userId, status: 'choice'},(err) => {
-      if(err){
+    UserStatus.create({userId: userId, status: 'choice'}, (err) => {
+      if (err) {
         return callback(err, null);
       }
       return callback(null, this.showText());
