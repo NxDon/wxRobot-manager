@@ -8,10 +8,12 @@ class Srct {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
+    this.realCity = [{city: '成都'}, {city: '北京'}, {city: '西安'},
+      {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
   showText() {
-    return {type: 'Text', info: '请如入你的性别'};
+    return {type: 'Text', info: '请输入你的性别'};
   }
 
   handler(userId, message, callback) {
@@ -21,7 +23,8 @@ class Srct {
           UserStatus.update({userId: userId}, {status: 'choice'}, (err) => {
             done(null, {text: constant.validate.info});
           });
-        } else if (this.validate.check(message.type, this.realType)) {
+        } else if (this.validate.check(message.type, this.realType) &&
+            this.validate.city(message.text, this.realCity)) {
           User.update({userId: userId}, {city: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});

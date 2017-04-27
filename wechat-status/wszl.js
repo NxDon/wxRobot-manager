@@ -8,8 +8,6 @@ class Wszl {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
-    this.realCity = [{city: '成都'}, {city: '北京'}, {city: '西安'},
-      {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
   showText() {
@@ -23,8 +21,7 @@ class Wszl {
           UserStatus.update({userId: userId},{status: 'choice'}, (err) => {
             done(null, {text: constant.validate.info});
           });
-        } else if (this.validate.check(message.type, this.realType)
-            && this.validate.city(message.text, this.realCity)) {
+        } else if (this.validate.check(message.type, this.realType)) {
           User.create({userId: userId, name: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
