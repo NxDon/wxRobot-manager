@@ -9,19 +9,23 @@ class Change {
   }
 
   showText() {
-    return {type: 'Text', info: `请选择您的角色[请输入序号] 
-     1.我要当学员;2.我要当助教；3.我想合作`};
+    return {
+      type: 'Text', info: `请选择您的角色[请输入序号]:
+     1.我要当学员
+     2.我要当助教
+     3.我想合作`
+    };
   }
 
   handler(userId, message, callback) {
     if (this.validate.check(message.type, this.realType) && message.text === 'q') {
-      UserStatus.update({userId: userId}, {status: 'choice'},(err) => {
-      if (err) {
-        return callback(err, null);
-      }
-      return callback(null, this.showText());
-    });
-  } else {
+      UserStatus.update({userId: userId}, {status: 'choice'}, (err) => {
+        if (err) {
+          return callback(err, null);
+        }
+        return callback(null, this.showText());
+      });
+    } else {
       return callback(null, constant.validate.err);
     }
   }
