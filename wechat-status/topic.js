@@ -7,7 +7,8 @@ const async = require('async');
 class Topic {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'}];
+    this.realType = [{type: 'Text'}, {type: 'Picture'},{type: 'Attachment'},
+      {type: 'Recording'},{type: 'Video'}];
   }
 
   showText() {
