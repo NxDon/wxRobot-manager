@@ -1,8 +1,8 @@
 const UserStatus = require('../model/userStatus');
 
 class Group {
-  showText() {
-    return {type: 'Text', info: '欢迎加入该群'};
+  showText(userId) {
+    return {type: 'Text', info: 'welcome '+ userId + ' to the group'};
   }
 
   handler(groupId, message, userId, callback) {
@@ -10,7 +10,7 @@ class Group {
       if (err) {
         return callback(err, null);
       }
-      return callback(null, this.showText());
+      return callback(null, this.showText(userId));
     });
   }
 }
