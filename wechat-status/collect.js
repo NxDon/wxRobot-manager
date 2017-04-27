@@ -8,7 +8,8 @@ const async = require('async');
 class Collect {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'}, {type: 'Picture'}];
+    this.realType = [{type: 'Text'}, {type: 'Picture'},{type: 'Attachment'},
+      {type: 'Recording'},{type: 'Video'}];
   }
 
   showText() {
