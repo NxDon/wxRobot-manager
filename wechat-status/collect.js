@@ -8,8 +8,8 @@ const async = require('async');
 class Collect {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'}, {type: 'Picture'},{type: 'Attachment'},
-      {type: 'Recording'},{type: 'Video'}];
+    this.realType = [{type: 'Text'}, {type: 'Picture'}, {type: 'Attachment'},
+      {type: 'Recording'}, {type: 'Video'}];
   }
 
   showText() {
@@ -22,14 +22,14 @@ class Collect {
         if (this.validate.check(message.type, this.realType)) {
           GroupTopic.find({groupId}, done);
         } else {
-          done(null, {text: constant.validate.err});
+          done(null, {text: constant.validate.incorrect});
         }
       },
       (data, done) => {
         if (data.text) {
           done(null, data);
         } else {
-          if (message.text === '#') {
+          if (message.type === 'Text' && message.text === '#') {
             UserStatus.update({userId: groupId}, {status: 'topic'}, (err, data)=> {
               done(null, {text: constant.validate.end})
             });

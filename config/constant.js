@@ -14,6 +14,7 @@ const constant = {
     3.我想合作`
     },
     err: {type: 'Text', info: '输入有误,请重新输入或输入q返回'},
+    incorrect: {type: 'Text', info: '输入格式有误'},
     no: {type: 'Null', info: ''},
     end: {type: 'Text', info: '主题讨论终止'}
   }
