@@ -23,7 +23,11 @@ class Srct {
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        if (this.validate.check(message.type, this.realType) &&
+        if (this.validate.check(message.type, this.realType) && message.text === 'q'){
+          UserStatus.update({userId: userId},{status: 'choice'}, (err) => {
+            done(null, {text: constant.validate.info});
+          });
+        } else if (this.validate.check(message.type, this.realType) &&
             this.validate.city(message.text, this.realCity)) {
           User.update({userId: userId}, {city: message.text}, done);
         } else {

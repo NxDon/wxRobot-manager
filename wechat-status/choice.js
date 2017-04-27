@@ -25,8 +25,9 @@ class Info {
         }
         return callback(null, this.showText(message.text));
       });
-    } else {
+    }  else {
       return callback(null, constant.validate.err);
+
     }
   }
 }

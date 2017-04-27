@@ -17,7 +17,11 @@ class Wszl {
   handler(userId, message, callback) {
     async.waterfall([
       (done) => {
-        if (this.validate.check(message.type, this.realType)) {
+        if (this.validate.check(message.type, this.realType) && message.text === 'q'){
+          UserStatus.update({userId: userId},{status: 'choice'}, (err) => {
+            done(null, {text: constant.validate.info});
+          });
+        } else if (this.validate.check(message.type, this.realType)) {
           User.create({userId: userId, name: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});

@@ -12,7 +12,7 @@ class Collect {
   }
 
   showText() {
-    return {type: 'Text', info: '你说的真棒'};
+    return {type: 'Null', info: ''};
   }
 
   handler(groupId, message, userId, callback) {
