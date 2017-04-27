@@ -7,8 +7,6 @@ const async = require('async');
 class Topic {
   constructor() {
     this.validate = new Validate();
-    this.realType = [{type: 'Text'}, {type: 'Picture'},{type: 'Attachment'},
-      {type: 'Recording'},{type: 'Video'}];
   }
 
   showText() {
@@ -18,7 +16,7 @@ class Topic {
   handler(groupId, message, userId, callback) {
     async.waterfall([
       (done) => {
-        if (this.validate.check(message.type, this.realType) && message.text.match(/^#/)) {
+        if (message.type === 'Text' && message.text.match(/^#/)) {
           GroupTopic.create({topic: message.text, groupId: groupId, userId: userId}, done);
         } else {
           done(null, {text: constant.validate.no});
