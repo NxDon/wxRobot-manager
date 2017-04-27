@@ -12,8 +12,16 @@ class Srct {
       {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
-  showText() {
-    return {type: 'Text', info: '请输入你的性别'};
+  showText(city) {
+    switch (city) {
+      case '成都': return {type: 'add_member', info: '成都学员群'};
+      case '北京': return {type: 'add_member', info: '北京学员群'};
+      case '深圳': return {type: 'add_member', info: '深圳学员群'};
+      case '上海': return {type: 'add_member', info: '上海学员群'};
+      case '西安': return {type: 'add_member', info: '西安学员群'};
+      case '武汉': return {type: 'add_member', info: '武汉学员群'};
+      default: return {type: 'add_member', info: '上海学员群'};
+    }
   }
 
   handler(userId, message, callback) {
@@ -34,7 +42,7 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'srxb'}, done);
+          UserStatus.update({userId: userId}, {status: 'finish'}, done);
         }
       }
     ], (err, data) => {
@@ -44,7 +52,7 @@ class Srct {
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText());
+      return callback(null, this.showText(message.text));
     });
   }
 }

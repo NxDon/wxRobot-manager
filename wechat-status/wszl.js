@@ -11,7 +11,7 @@ class Wszl {
   }
 
   showText() {
-    return {type: 'Text', info: '请输入你所在城市'};
+    return {type: 'Text', info: '请输入你的性别'};
   }
 
   handler(userId, message, callback) {
@@ -31,7 +31,7 @@ class Wszl {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'srct'}, done);
+          UserStatus.update({userId: userId}, {status: 'srxb'}, done);
         }
       }
     ], (err, data) => {

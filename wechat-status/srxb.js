@@ -11,11 +11,8 @@ class Srct {
     this.realSex = [{sex: '男'}, {sex: '女'}];
   }
 
-  showText(sex) {
-    if (sex === '男') {
-      return {type: 'add_member', info: 'fafaf4a9'};
-    }
-    return {type: 'add_member', info: 'fafaf4a9'};
+  showText() {
+    return {type: 'Text', info: '请输入你所在的城市'};
   }
 
   handler(userId, message, callback) {
@@ -36,7 +33,7 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'finish'}, done);
+          UserStatus.update({userId: userId}, {status: 'srct'}, done);
         }
       }
     ], (err, data) => {
@@ -46,7 +43,7 @@ class Srct {
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText(message.text));
+      return callback(null, this.showText());
 
     });
   }

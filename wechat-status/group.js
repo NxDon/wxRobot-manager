@@ -2,7 +2,7 @@ const UserStatus = require('../model/userStatus');
 
 class Group {
   showText(userId) {
-    return {type: 'Text', info: 'welcome '+ userId + ' to the group'};
+    return {type: 'Null', info: ''};
   }
 
   handler(groupId, message, userId, callback) {
