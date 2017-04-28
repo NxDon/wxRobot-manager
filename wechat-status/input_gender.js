@@ -4,24 +4,15 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Srct {
+class InputGender {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
-    this.realCity = [{city: '成都'}, {city: '北京'}, {city: '西安'},
-      {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
+    this.realSex = [{sex: '男'}, {sex: '女'}];
   }
 
-  showText(city) {
-    switch (city) {
-      case '成都': return {type: 'add_member', info: '成都教练群'};
-      case '北京': return {type: 'add_member', info: '北京教练群'};
-      case '深圳': return {type: 'add_member', info: '深圳教练群'};
-      case '上海': return {type: 'add_member', info: '上海教练群'};
-      case '西安': return {type: 'add_member', info: '西安教练群'};
-      case '武汉': return {type: 'add_member', info: '武汉教练群'};
-      default: return {type: 'add_member', info: '上海教练群'};
-    }
+  showText() {
+    return {type: 'Text', info: '请输入你所在的城市'};
   }
 
   handler(userId, message, callback) {
@@ -32,8 +23,8 @@ class Srct {
             done(null, {text: constant.validate.info});
           });
         } else if (this.validate.check(message.type, this.realType) &&
-            this.validate.city(message.text, this.realCity)) {
-          User.update({userId: userId}, {city: message.text}, done);
+            this.validate.sex(message.text, this.realSex)) {
+          User.update({userId: userId}, {sex: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
         }
@@ -42,19 +33,20 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId},{status:'finish'},done);
+          UserStatus.update({userId: userId}, {status: 'input_city'}, done);
         }
       }
-    ],(err, data) => {
+    ], (err, data) => {
       if (err) {
         return callback(err, null);
       }
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText(message.text));
+      return callback(null, this.showText());
+
     });
   }
 }
 
-module.exports = Srct;
+module.exports = InputGender;

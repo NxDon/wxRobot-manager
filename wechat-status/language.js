@@ -4,7 +4,7 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Srct {
+class Language {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
@@ -31,7 +31,7 @@ class Srct {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'zjct'}, done);
+          UserStatus.update({userId: userId}, {status: 'assistant_city'}, done);
         }
       }
     ], (err, data) => {
@@ -46,4 +46,4 @@ class Srct {
   }
 }
 
-module.exports = Srct;
+module.exports = Language;

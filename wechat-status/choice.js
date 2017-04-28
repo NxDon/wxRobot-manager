@@ -2,7 +2,7 @@ const UserStatus = require('../model/userStatus');
 const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 
-class Info {
+class Choice {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
@@ -17,7 +17,7 @@ class Info {
   }
 
   handler(userId, message, callback) {
-    const status = message.text === '1' ? 'wszl' : message.text === '2' ? 'zj' : 'finish';
+    const status = message.text === '1' ? 'information' : message.text === '2' ? 'assistant' : 'finish';
     if (this.validate.check(message.type, this.realType) && message.text === 'q') {
       return callback(null, constant.validate.info);
     } else if (this.validate.check(message.type, this.realType) && message.text.match(/[1-3]/)) {
@@ -34,4 +34,4 @@ class Info {
   }
 }
 
-module.exports = Info;
+module.exports = Choice;

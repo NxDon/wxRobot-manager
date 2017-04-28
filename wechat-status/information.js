@@ -4,14 +4,14 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Wszl {
+class Information {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
   }
 
   showText() {
-    return {type:'Text', info: '你都会哪些编程语言？(如有多种语言，请用/区分)'};
+    return {type: 'Text', info: '请输入你的性别'};
   }
 
   handler(userId, message, callback) {
@@ -28,13 +28,13 @@ class Wszl {
         }
       },
       (data, done) => {
-        if(data.text) {
+        if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId},{status:'language'}, done);
+          UserStatus.update({userId: userId}, {status: 'input_gender'}, done);
         }
       }
-    ],(err, data) => {
+    ], (err, data) => {
       if (err) {
         return callback(err, null);
       }
@@ -46,4 +46,4 @@ class Wszl {
   }
 }
 
-module.exports = Wszl;
+module.exports = Information;

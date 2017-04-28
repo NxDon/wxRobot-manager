@@ -4,15 +4,14 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Srct {
+class Assistant {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
-    this.realSex = [{sex: '男'}, {sex: '女'}];
   }
 
   showText() {
-    return {type: 'Text', info: '请输入你所在的城市'};
+    return {type:'Text', info: '你都会哪些编程语言？(如有多种语言，请用/区分)'};
   }
 
   handler(userId, message, callback) {
@@ -22,21 +21,20 @@ class Srct {
           UserStatus.update({userId: userId},{status: 'choice'}, (err) => {
             done(null, {text: constant.validate.info});
           });
-        } else if (this.validate.check(message.type, this.realType) &&
-            this.validate.sex(message.text, this.realSex)) {
-          User.update({userId: userId}, {sex: message.text}, done);
+        } else if (this.validate.check(message.type, this.realType)) {
+          User.create({userId: userId, name: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
         }
       },
       (data, done) => {
-        if (data.text) {
+        if(data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'srct'}, done);
+          UserStatus.update({userId: userId},{status:'language'}, done);
         }
       }
-    ], (err, data) => {
+    ],(err, data) => {
       if (err) {
         return callback(err, null);
       }
@@ -44,9 +42,8 @@ class Srct {
         return callback(null, data.text);
       }
       return callback(null, this.showText());
-
     });
   }
 }
 
-module.exports = Srct;
+module.exports = Assistant;

@@ -4,14 +4,22 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Wszl {
+class AssistantCity {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
   }
 
-  showText() {
-    return {type: 'Text', info: '请输入你的性别'};
+  showText(city) {
+    switch (city) {
+      case '成都': return {type: 'add_member', info: '成都教练群'};
+      case '北京': return {type: 'add_member', info: '北京教练群'};
+      case '深圳': return {type: 'add_member', info: '深圳教练群'};
+      case '上海': return {type: 'add_member', info: '上海教练群'};
+      case '西安': return {type: 'add_member', info: '西安教练群'};
+      case '武汉': return {type: 'add_member', info: '武汉教练群'};
+      default: return {type: 'add_member', info: '全国教练群'};
+    }
   }
 
   handler(userId, message, callback) {
@@ -22,7 +30,7 @@ class Wszl {
             done(null, {text: constant.validate.info});
           });
         } else if (this.validate.check(message.type, this.realType)) {
-          User.create({userId: userId, name: message.text}, done);
+          User.update({userId: userId}, {city: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});
         }
@@ -31,19 +39,19 @@ class Wszl {
         if (data.text) {
           done(null, data);
         } else {
-          UserStatus.update({userId: userId}, {status: 'srxb'}, done);
+          UserStatus.update({userId: userId},{status:'finish'},done);
         }
       }
-    ], (err, data) => {
+    ],(err, data) => {
       if (err) {
         return callback(err, null);
       }
       if (data.text) {
         return callback(null, data.text);
       }
-      return callback(null, this.showText());
+      return callback(null, this.showText(message.text));
     });
   }
 }
 
-module.exports = Wszl;
+module.exports = AssistantCity;

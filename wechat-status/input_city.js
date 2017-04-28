@@ -4,7 +4,7 @@ const constant = require('../config/constant');
 const Validate = require('../tool/validate');
 const async = require('async');
 
-class Srct {
+class InputCity {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
@@ -72,4 +72,4 @@ class Srct {
   }
 }
 
-module.exports = Srct;
+module.exports = InputCity;
