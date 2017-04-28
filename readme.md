@@ -1,53 +1,59 @@
-# 基于 express + mongoose 的api 练习
 
 ## 运行方式
-1. 检查 config/default.json 中参数配置是否正确
+1. 检查 config/default.json 中参数配置，确保能连接到指定的数据库
 2. 在命令行中执行如下命令
    ```bash
    npm start
    ```
+3.若数据库连接失败，请确保本地数据库服务开启
+    ```bash
+        service mongod start
+    ```
 
-3. 在浏览器中测试 http://localhost:3000
-4. 在浏览器中测试 http://localhost:3000/items 
+## 接口测试
+1. 在postman测试接口： POST http://localhost:3000/wechat
+    body传参
+    ```用户和机器人私聊参数形式
+        {
+	        "sender_puid":"gfg",
+	        "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"}
+        }
+    ```
+    ```用户和机器人群聊参数形式
+            {
+    	        "sender_puid":"gfg",
+    	        "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"},
+    	        "member_puid":"rfg",
+            }
+        ```
+2. 微信测试 ： 加机器人好友并且功能正常使用
 
 
-## 练习要求
+## 文件结构
 
-**重要：本题包含四个篇目：基础，进阶，提高，出栈，做完一个篇目后，需要到 https://jinshuju.net/f/27Zpwx 提交做题记录**
+1. app.js:接口的入口文件
 
-### 基础篇
-1. 创建model: item 完成下列接口
+2. wechat-status文件夹下的文件表示用户或者群的不同状态
 
-   ```
-   GET /items # 获取全部item
-   GET /items/:id	# 获取一个item
-   POST /items #增加一个item
-   DELETE /items/:id # 删除一个item
-   PUT /items/:id	# 更新一个item
-   ```
+** 每个状态下的handler函数做的处理就是存储数据，更新用户或群的状态，返回数据三个模块
 
-2. 创建Model: category，category 与 item 为一对多关系，并参照上面完成相应接口
+*私聊状态变更流程*
+* 我要当学员：info -> choice -> information -> input_gender -> input_city -> finish -> change -> choice
+* 我要当助教：info -> choice -> assistant -> language -> assistant_city -> finish -> change -> choice
+* 我想合作：info -> choice -> finish -> change -> choice
 
-3. 创建Model: cart，cart 与 item 为多对多关系，并参照上面完成相应接口
+*群聊状态变更流程*
+* 创建主题收集回答：group -> topic -> collect -> topic
 
-### 进阶篇
-1. 自己编写刷数据库脚本创建上述数据库，并完成功能
-2. 用 supertest + mocha 完成上述接口的集成测试
-3. 用 inspector 调试功能解决问题
+3. model文件夹下的文件表示数据库模型实体类
 
-### 提升篇
-1. 创建Model: user, 可以实现用户的注册和登录功能,user和cart是一对一的关系
+用户信息类：包括用户通过机器人完善的个人信息
+用户或群状态类：包括用户或群的唯一标识和用户或群当前的状态
+话题类：包括某个人在某个群发表的主题内容
+话题回答类：包括某个人对某个主题的回答内容
 
-2. 写一个中间件,实现如下功能
-   ```
-   - 没有登录的用户只能访问 GET 类型接口
-   - 登录的用户可以访问所有接口
-   - 用户只能访问自己的 cart
-   ```
 
-3. 从一个空库开始完成上述过程
+4. tool文件下的文件表示一些用于验证用户输入格式或正确性的方法
 
-4. 提出一个合理需求，要求用到 discriminator/populate/unwind，并完成之
+5. config文件夹下的文件包括表示一些常量的文件和默认的数据库配置的文件
 
-### 出栈篇
-待定。。。

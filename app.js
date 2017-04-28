@@ -1,3 +1,4 @@
+/*该文件主要就是给机器人提供接口，通过接受参数将不同状态的处理分配到不同状态的handler函数进行处理和数据传送。*/
 const mongoose = require('mongoose');
 const express = require('express');
 const config = require('config');
@@ -10,6 +11,7 @@ const UserStatus = require('./model/userStatus');
 const User = require('./model/user');
 const status = {};
 
+//加载wechat-status文件夹下的所有文件，并将所有文件名作为用户或群的status记录
 glob("./wechat-status/*.js", {}, (err, files) => {
   files.forEach((file) => {
     let pathName = path.basename(file, '.js');
@@ -18,6 +20,7 @@ glob("./wechat-status/*.js", {}, (err, files) => {
   });
 });
 
+//连接数据库mongoDB
 mongoose.connect(config.get('mongoUri'), (err) => {
   if (err) {
     console.log('connect failed');
@@ -60,22 +63,6 @@ app.post('/wechat', (req, res) => {
   });
 });
 
-app.get('/userStatus', (req, res) => {
-  UserStatus.find({}, (err, data) => {
-    if (err) {
-      return res.sendStatus(constant.httpCode.NO_CONTENT);
-    }
-    return res.status(constant.httpCode.OK).send(data);
-  });
-});
-app.get('/user', (req, res) => {
-  User.find({}, (err, data) => {
-    if (err) {
-      return res.sendStatus(constant.httpCode.NO_CONTENT);
-    }
-    return res.status(constant.httpCode.OK).send(data);
-  });
-});
 app.listen(config.get('httpPort'), ()=> {
   console.log('server started at http://localhost:' + config.get('httpPort'));   // eslint-disable-line no-console
 });
