@@ -8,32 +8,30 @@ class Srct {
   constructor() {
     this.validate = new Validate();
     this.realType = [{type: 'Text'}];
-    this.realCity = [{city: '成都'}, {city: '北京'}, {city: '西安'},
-      {city: '武汉'}, {city: '深圳'}, {city: '上海'}];
   }
 
   showText(city, NumberSex) {
     let sex = '';
     if (NumberSex === '男') {
-      sex = 'boys';
+      return {type: 'add_member', info: '全国学员群'};
     } else {
-      sex = 'girls'
-    }
-    switch (city) {
-      case '成都':
-        return {type: 'add_member', info: '成都学员群-'+ sex};
-      case '北京':
-        return {type: 'add_member', info: '北京学员群-'+ sex};
-      case '深圳':
-        return {type: 'add_member', info: '深圳学员群-'+ sex};
-      case '上海':
-        return {type: 'add_member', info: '上海学员群-'+ sex};
-      case '西安':
-        return {type: 'add_member', info: '西安学员群-'+ sex};
-      case '武汉':
-        return {type: 'add_member', info: '武汉学员群-'+ sex};
-      default:
-        return {type: 'add_member', info: '上海学员群-'+ sex};
+      sex = 'girls';
+      switch (city) {
+        case '成都':
+          return {type: 'add_member', info: '成都学员群-' + sex};
+        case '北京':
+          return {type: 'add_member', info: '北京学员群-' + sex};
+        case '深圳':
+          return {type: 'add_member', info: '深圳学员群-' + sex};
+        case '上海':
+          return {type: 'add_member', info: '上海学员群-' + sex};
+        case '西安':
+          return {type: 'add_member', info: '西安学员群-' + sex};
+        case '武汉':
+          return {type: 'add_member', info: '武汉学员群-' + sex};
+        default:
+          return {type: 'add_member', info: '全国学员群-'};
+      }
     }
   }
 
@@ -44,8 +42,7 @@ class Srct {
           UserStatus.update({userId: userId}, {status: 'choice'}, (err) => {
             done(null, {text: constant.validate.info});
           });
-        } else if (this.validate.check(message.type, this.realType) &&
-            this.validate.city(message.text, this.realCity)) {
+        } else if (this.validate.check(message.type, this.realType)) {
           User.update({userId: userId}, {city: message.text}, done);
         } else {
           done(null, {text: constant.validate.err});

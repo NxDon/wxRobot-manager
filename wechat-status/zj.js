@@ -11,7 +11,7 @@ class Wszl {
   }
 
   showText() {
-    return {type:'Text', info: '你擅长的编程语言是什么'};
+    return {type:'Text', info: '你都会哪些编程语言？(如有多种语言，请用/区分)'};
   }
 
   handler(userId, message, callback) {
