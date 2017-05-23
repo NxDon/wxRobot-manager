@@ -13,6 +13,7 @@
 ## 接口测试
 1. 在postman测试接口： POST http://localhost:3000/wechat
     body传参
+
     用户和机器人私聊参数形式
 
     ```
@@ -32,7 +33,8 @@
         ```
 2. 微信测试 ： 加机器人好友并且功能正常使用
 
-##接口返回数据
+## 接口返回数据
+
     ```
         {
              type: String, //type的三种类型：['Text', 'Null', add_member']
