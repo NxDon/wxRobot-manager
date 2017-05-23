@@ -23,18 +23,16 @@
         }
     ```
     用户和机器人群聊参数形式
-
     ```
-            {
-    	        "sender_puid":"gfg",
-    	        "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"},
-    	        "member_puid":"rfg",
-            }
-        ```
+        {
+    	    "sender_puid":"gfg",
+    	    "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"},
+            "member_puid":"rfg",
+        }
+    ```
 2. 微信测试 ： 加机器人好友并且功能正常使用
 
 ## 接口返回数据
-
     ```
         {
              type: String, //type的三种类型：['Text', 'Null', add_member']
