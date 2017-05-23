@@ -43,7 +43,7 @@ a. type为Text，info为向用户展示的信息，表示直接向用户发送�
 
 b. type为Null，info为空字符串，表示什么也不用做
 
-c. type为add_member，info为空字符串，表示将用户拉进群
+c. type为add_member，info为群名，表示将用户拉进群
 
 ## 文件结构
 
