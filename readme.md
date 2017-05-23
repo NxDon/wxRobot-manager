@@ -33,11 +33,17 @@
 2. 微信测试 ： 加机器人好友并且功能正常使用
 
 ## 接口返回数据
-   
+
        {
           type: String, //type的三种类型：['Text', 'Null', add_member']
           info: String
        }
+
+a. type为Text，info为向用户展示的信息，表示直接向用户发送文字信息
+
+b. type为Null,info为空字符串，表示什么也不用做
+
+c. type为add_member,info为空字符串，表示将用户拉进群
 
 ## 文件结构
 
