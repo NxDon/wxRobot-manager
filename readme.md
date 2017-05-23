@@ -34,12 +34,11 @@
 
 ## 接口返回数据
 
-    ```
-        {
+    ```{
              type: String, //type的三种类型：['Text', 'Null', add_member']
              info: String
-        }
-    ```
+        }```
+        
 ## 文件结构
 
 1. app.js:接口的入口文件
