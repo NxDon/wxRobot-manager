@@ -13,13 +13,17 @@
 ## 接口测试
 1. 在postman测试接口： POST http://localhost:3000/wechat
     body传参
-    ```用户和机器人私聊参数形式
+    用户和机器人私聊参数形式
+
+    ```
         {
 	        "sender_puid":"gfg",
 	        "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"}
         }
     ```
-    ```用户和机器人群聊参数形式
+    用户和机器人群聊参数形式
+
+    ```
             {
     	        "sender_puid":"gfg",
     	        "message":{"type":"Text", "text": "北京", "file_path":"dfghjkj"},
@@ -27,6 +31,14 @@
             }
         ```
 2. 微信测试 ： 加机器人好友并且功能正常使用
+
+##接口返回数据
+    ```
+        {
+             type: String, //type的三种类型：['Text', 'Null', add_member']
+             info: String
+        }
+    ```
 
 
 ## 文件结构
@@ -48,8 +60,11 @@
 3. model文件夹下的文件表示数据库模型实体类
 
 用户信息类：包括用户通过机器人完善的个人信息
+
 用户或群状态类：包括用户或群的唯一标识和用户或群当前的状态
+
 话题类：包括某个人在某个群发表的主题内容
+
 话题回答类：包括某个人对某个主题的回答内容
 
 
