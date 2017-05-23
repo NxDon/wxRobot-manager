@@ -33,14 +33,11 @@
 2. 微信测试 ： 加机器人好友并且功能正常使用
 
 ## 接口返回数据
-    数据类型
-
-    ```
+   
        {
           type: String, //type的三种类型：['Text', 'Null', add_member']
           info: String
        }
-    ```
 
 ## 文件结构
 
