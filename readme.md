@@ -2,11 +2,11 @@
 ## 运行方式
 1. 检查 config/default.json 中参数配置，确保能连接到指定的数据库
 2. 在命令行中执行如下命令
-   ```bash
+   bash```
    npm start
    ```
 3.若数据库连接失败，请确保本地数据库服务开启
-    ```bash
+    bash```
         service mongod start
     ```
 
@@ -33,12 +33,13 @@
 2. 微信测试 ： 加机器人好友并且功能正常使用
 
 ## 接口返回数据
+    ```
+    {
+         type: String, //type的三种类型：['Text', 'Null', add_member']
+         info: String
+    }
+    ```
 
-    ```{
-             type: String, //type的三种类型：['Text', 'Null', add_member']
-             info: String
-        }```
-        
 ## 文件结构
 
 1. app.js:接口的入口文件
