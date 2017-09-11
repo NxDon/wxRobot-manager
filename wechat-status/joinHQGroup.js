@@ -6,7 +6,11 @@ class joinHQGroup {
 
     handler(userId, message, callback) {
         if (message.text === constant.infos.secretCode) {
-            UserStatus.create({userId: userId, status: 'queryName', userRealName: constant.infos.defaultUserName}, (err) => {
+            UserStatus.create({
+                userId: userId,
+                status: 'queryName',
+                userRealName: constant.infos.defaultUserName
+            }, (err) => {
                 if (err) {
                     return callback(err, null);
                 }
