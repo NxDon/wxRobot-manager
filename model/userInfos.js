@@ -8,4 +8,4 @@ const UserStatusSchema = new Schema({
     userRealName:String//用户真实姓名
 });
 
-module.exports = mongoose.model('UserStatus', UserStatusSchema);
+module.exports = mongoose.model('UserInfos', UserStatusSchema);

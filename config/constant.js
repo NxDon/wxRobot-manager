@@ -1,22 +1,19 @@
 const constant = {
-  httpCode: {
-    OK: 200,
-    CREATED: 201,
-    NO_CONTENT: 204,
-    NOT_FOUND: 404,
-    BAD_REQUEST: 400
-  },
-  validate: {
-    info: {
-      type: 'Text', info: `请选择您的角色[请输入序号]: 
-    1.我要当学员
-    2.我要当助教
-    3.我想合作`
+    httpCode: {
+        OK: 200,
+        CREATED: 201,
+        NO_CONTENT: 204,
+        NOT_FOUND: 404,
+        BAD_REQUEST: 400
     },
-    err: {type: 'Text', info: '输入有误,请重新输入或输入q返回'},
-    incorrect: {type: 'Text', info: '输入格式有误'},
-    no: {type: 'Null', info: ''},
-    end: {type: 'Text', info: '主题讨论终止'}
-  }
+    infos: {
+        secretCode:'tws第二期',
+        tips: `芝麻开门，暗号是什么？（如不知道暗号，请输入'我要上车'加入咨询群咨询'）`,
+        HQGroup: `思特沃克特训营第二期总群`,
+        ConsultGroup:`思特沃克特训营第二期咨询群`,
+        CityGroup:`思特沃克特训营第二期城市群-`,
+        CollegeGroup: `思特沃克特训营第二期学校群-`,
+        defaultUserName:"匿名"
+    }
 };
 module.exports = constant;

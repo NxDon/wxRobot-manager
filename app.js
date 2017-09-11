@@ -7,8 +7,7 @@ const async = require('async');
 const glob = require('glob');
 const path = require('path');
 const constant = require('./config/constant');
-const UserStatus = require('./model/userStatus');
-const User = require('./model/user');
+const UserStatus = require('./model/userInfos');
 const status = {};
 
 //加载wechat-status文件夹下的所有文件，并将所有文件名作为用户或群的status记录
@@ -42,16 +41,15 @@ app.post('/wechat', (req, res) => {
     (data, done) => {
       if (!member) {
         if (!data) {
-            console.log(status.type);
           status['joinHQGroup'].handler(userId, message, done);
         } else {
-          status[data.status].handler(userId, message, done);
+            status[data.status].handler(userId, message, done);
         }
       } else {
         if (!data) {
           status['group'].handler(userId, message, member, done);
         } else {
-          status[data.status].handler(userId, message, member, done);
+            status[data.status].handler(userId, message, member, done);
         }
       }
 
