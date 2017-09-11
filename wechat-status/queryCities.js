@@ -1,7 +1,7 @@
 /*用户加机器人好友状态：数据库创建用户新状态，并给用户返回文本信息*/
 const UserStatus = require('../model/userStatus');
 
-class queryName {
+class queryCities {
 
 
     handler(userId, message, callback) {
@@ -12,4 +12,4 @@ class queryName {
     }
 }
 
-module.exports = queryName;
+module.exports = queryCities;

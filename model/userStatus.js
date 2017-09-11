@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const UserStatusSchema = new Schema({
  userId: String,//群或者用户的唯一标识
  status: String,//群或者用户当前的状态
+    userRealName:String//用户真实姓名
 });
 
 module.exports = mongoose.model('UserStatus', UserStatusSchema);

@@ -4,9 +4,8 @@ const UserStatus = require('../model/userStatus');
 class joinHQGroup {
 
     handler(userId, message, callback) {
-        console.log(message);
         if (message.text === 'tws第二期') {
-            UserStatus.create({userId: userId, status: 'queryName'}, (err) => {
+            UserStatus.create({userId: userId, status: 'queryCities',userRealName:"匿名"}, (err) => {
                 if (err) {
                     return callback(err, null);
                 }
