@@ -42,7 +42,8 @@ app.post('/wechat', (req, res) => {
     (data, done) => {
       if (!member) {
         if (!data) {
-          status['info'].handler(userId, message, done);
+            console.log(status.type);
+          status['joinHQGroup'].handler(userId, message, done);
         } else {
           status[data.status].handler(userId, message, done);
         }
