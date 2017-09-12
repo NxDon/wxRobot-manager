@@ -46,11 +46,11 @@ app.post('/wechat', (req, res) => {
                     status[data.status].handler(userId, message, done);
                 }
             } else {
-                if (!data) {
-                    status['group'].handler(userId, message, member, done);
-                } else {
-                    status[data.status].handler(userId, message, member, done);
-                }
+                // if (!data) {
+                //     status['group'].handler(userId, message, member, done);
+                // } else {
+                //     status[data.status].handler(userId, message, member, done);
+                // }
             }
 
         }
@@ -58,6 +58,7 @@ app.post('/wechat', (req, res) => {
         if (err) {
             return res.sendStatus(constant.httpCode.BAD_REQUEST);
         }
+
         return res.status(constant.httpCode.OK).send(data);
     });
 });
