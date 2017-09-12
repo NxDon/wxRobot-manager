@@ -1,16 +1,21 @@
 
+# 微信机器人服务器
+配合 [WeChatRobot](https://github.com/NxDon/WeChatRobot.git)食用，实现微信自动拉人加群，录入个人信息等功能。
 ## 运行方式
 1. 检查 config/default.json 中参数配置，确保能连接到指定的数据库
 2. 在命令行中执行如下命令
-   bash```
+   ```
    npm start
    ```
-3.若数据库连接失败，请确保本地数据库服务开启
-    bash```
-        service mongod start
+3. 若数据库连接失败，请确保本地数据库服务开启
+   ```
+   service mongod start
+
     ```
+       
 
 ## 接口测试
+
 1. 在postman测试接口： POST http://localhost:3000/wechat
     body传参
 
@@ -35,15 +40,14 @@
 ## 接口返回数据
 
        {
-          type: String, //type的三种类型：['Text', 'Null', add_member']
+          type: String, //type的三种类型：['Text', ' add_member']
           info: String
        }
 
-a. type为Text，info为向用户展示的信息，表示直接向用户发送文字信息
+1. type为Text，info为向用户展示的信息，表示直接向用户发送文字信息
 
-b. type为Null，info为空字符串，表示什么也不用做
 
-c. type为add_member，info为群名，表示将用户拉进群
+2. type为add_member，info为群名，表示将用户拉进群
 
 ## 文件结构
 
@@ -51,10 +55,10 @@ c. type为add_member，info为群名，表示将用户拉进群
 
 2. wechat-status文件夹下的文件表示用户或者群的不同状态
 
-** 每个状态下的handler函数做的处理就是存储数据，更新用户或群的状态，返回数据三个模块
+    * 每个状态下的handler函数做的处理就是存储数据，更新用户或群的状态，返回数据三个模块
 
-*私聊状态变更流程*
-* 加群状态变更： joinHQGroup -> queryName -> joinCityGroup -> joinCollegeGroup
+    * 私聊状态变更流程:
+    * 加群状态变更： joinHQGroup -> queryName -> joinCityGroup -> joinCollegeGroup -> end
  
 3. model文件夹下的文件表示数据库模型实体类
 
