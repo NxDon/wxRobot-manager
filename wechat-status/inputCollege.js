@@ -6,14 +6,13 @@ class joinCollegeGroup {
     handler(userId, message, callback) {
         let college = message.text;
 
-        UserStatus.update({userId: userId}, {status: 'joinCollegeGroup', college: message.text}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'inputCollege', college: message.text}, (err) => {
             if (err) {
                 return callback(err, null);
             }
             return callback(null, {
                 type: 'add_member',
-                info: constant.infos.CollegeGroup + college,
-                currentGroup: 'CollegeGroup'
+                info: "思特沃克特训营第二期总群"
             })
         });
     }

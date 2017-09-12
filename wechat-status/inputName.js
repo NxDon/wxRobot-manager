@@ -1,9 +1,9 @@
 /*用户加机器人好友状态：数据库创建用户新状态，并给用户返回文本信息*/
 const UserStatus = require('../model/userInfos');
 
-class queryName {
+class inputName {
     handler(userId, message, callback) {
-        UserStatus.update({userId: userId}, {status: 'joinCityGroup', userRealName: message.text}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'inputCity', userRealName: message.text}, (err) => {
             if (err) {
                 return callback(err, null);
             }
@@ -12,4 +12,4 @@ class queryName {
     }
 }
 
-module.exports = queryName;
+module.exports = inputName;

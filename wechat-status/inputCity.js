@@ -9,14 +9,13 @@ class joinCityGroup {
             console.log('not In cities');
             city = '全国（其他城市）'
         }
-        UserStatus.update({userId: userId}, {status: 'joinCollegeGroup', city: message.text}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'inputCollege', city: message.text}, (err) => {
             if (err) {
                 return callback(err, null);
             }
             return callback(null, {
-                type: 'add_member',
-                info: constant.infos.CityGroup + city,
-                currentGroup: 'CityGroup'
+                type: 'Text',
+                info: "录入城市信息成功，请录入学校完整名称：",
             })
         });
     }
