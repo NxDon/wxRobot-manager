@@ -5,7 +5,7 @@ const constant = require('../config/constant')
 class joinCollegeGroup {
     handler(userId, message, callback) {
         //更新信息之后，加入HQGroup
-        UserStatus.update({userId: userId}, {status: 'end', college: message.text}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'end'}, (err) => {
             if (err) {
                 return callback(err, null);
             }
