@@ -10,7 +10,7 @@ class joinCollegeGroup {
                 return callback(err, null);
             }
             return callback(null, {
-                type: 'add_member',
+                type: 'Text',
                 info: "加群流程完毕"
             })
         });
