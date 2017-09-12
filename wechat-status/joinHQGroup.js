@@ -17,9 +17,9 @@ class joinHQGroup {
                     return callback(err, null);
                 }
             });
-            return callback(null, {type: 'Text', info: "暗号正确，请录入个人姓名："})//currentGroup用于在wxpy中返回相应的加群信息
+            return callback(null, {type: 'Text', info: "暗号正确，请录入个人姓名："})
         } else if (message.text === '我要上车') {
-            return callback(null, {type: 'add_member', info: constant.infos.ConsultGroup, currentGroup: 'ConsultGroup'})
+            return callback(null, {type: 'add_member', info: constant.infos.ConsultGroup})
         }
         return callback(null, {
             type: 'Text', info: constant.infos.tips

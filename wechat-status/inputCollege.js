@@ -6,7 +6,7 @@ class joinCollegeGroup {
     handler(userId, message, callback) {
         let college = message.text;
 
-        UserStatus.update({userId: userId}, {status: 'inputCollege', college: message.text}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'joinHQGroup', college: message.text}, (err) => {
             if (err) {
                 return callback(err, null);
             }
