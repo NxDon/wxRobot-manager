@@ -4,7 +4,6 @@ const constant = require('../config/constant')
 
 class joinCollegeGroup {
     handler(userId, message, callback) {
-        let college = message.text;
         //更新信息之后，加入HQGroup
         UserStatus.update({userId: userId}, {status: 'end', college: message.text}, (err) => {
             if (err) {
@@ -12,9 +11,10 @@ class joinCollegeGroup {
             }
             return callback(null, {
                 type: 'add_member',
-                info: "思特沃克特训营第二期总群"
+                info: "加群流程完毕"
             })
         });
+
     }
 }
 
