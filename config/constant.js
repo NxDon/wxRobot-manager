@@ -13,7 +13,9 @@ const constant = {
         ConsultGroup:`思特沃克特训营第二期咨询群`,
         CityGroup:`思特沃克特训营第二期城市群-`,
         CollegeGroup: `思特沃克特训营第二期学校群-`,
-        defaultUserName:"匿名"
+        defaultUserName:'匿名',
+        defaultCity:'无',
+        defaultCollege:'无',
     }
 };
 module.exports = constant;

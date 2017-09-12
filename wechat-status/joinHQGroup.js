@@ -9,7 +9,9 @@ class joinHQGroup {
             UserStatus.create({
                 userId: userId,
                 status: 'queryName',
-                userRealName: constant.infos.defaultUserName
+                userRealName: constant.infos.defaultUserName,
+                city:constant.infos.defaultCity,
+                college:constant.infos.defaultCollege
             }, (err) => {
                 if (err) {
                     return callback(err, null);

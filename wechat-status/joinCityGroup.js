@@ -9,7 +9,7 @@ class joinCityGroup {
             console.log('not In cities');
             city = '全国（其他城市）'
         }
-        UserStatus.update({userId: userId}, {status: 'joinCollegeGroup'}, (err) => {
+        UserStatus.update({userId: userId}, {status: 'joinCollegeGroup', city: message.text}, (err) => {
             if (err) {
                 return callback(err, null);
             }
